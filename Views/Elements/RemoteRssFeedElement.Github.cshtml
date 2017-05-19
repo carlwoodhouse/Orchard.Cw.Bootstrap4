@@ -1,0 +1,35 @@
+﻿
+@{
+    var feed = Model.Feed.Elements("entry");
+    var count = 1;
+
+    foreach (var item in feed) {
+        var url = ((IEnumerable<dynamic>)item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "alternate");
+        var media = item.Element("thumbnail");
+        string title = item.Element("title").Value;
+
+        if (!string.IsNullOrEmpty(title)) {
+            title = title.Replace("carlwoodhouse ", string.Empty);
+            var tParts = title.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var last = tParts.Last();
+            title = title.Replace(last, string.Empty);
+
+            <div class="media p-2">
+                @if (media != null) {
+                    <img class="d-flex mr-3" src="@media.Attribute("url").Value" alt="carlwoodhouse" >
+                }
+                <div class="media-body">
+                    @title <a target="_blank" href="@url.Attribute("href").Value">@last</a>
+                </div>
+            </div>
+        }
+
+        if (count == (int)Model.Element.ItemCount) {
+            break;
+        }
+
+        count++;
+    }
+}
+
+

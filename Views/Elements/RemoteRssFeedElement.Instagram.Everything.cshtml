@@ -6,14 +6,15 @@
     foreach(var item in feed) {
         var image = ((IEnumerable<dynamic>) item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "enclosure");
         var url = ((IEnumerable<dynamic>)item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "alternate");
-
-        <img class="img-thumbnail" style="max-height: 200px; max-width: 200px;" src="@image.Attribute("href").Value.Replace("/s150x150", string.Empty)" />
+        if (!item.Element("title").Value.Contains("#mtb")) {
+        <img class="img-thumbnail" style="max-height: 19%; max-width: 19%;" src="@image.Attribute("href").Value.Replace("/s150x150", string.Empty)" />
 @*<a href="@url.Attribute("href").Value">@item.Element("title").Value</a>*@
-        if (count == (int)Model.Element.ItemCount ) {
-            break;
-        }
+            if (count == (int)Model.Element.ItemCount) {
+                break;
+            }
 
-        count++;
+            count++;
+        }
     }
 }
 

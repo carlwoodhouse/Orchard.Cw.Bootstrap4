@@ -1,0 +1,9 @@
+[
+    {
+      "inputs": [
+        "../Orchard.Bootstrap4/Assets/scss/bootstrap.scss", 
+        "Assets/scss/cw.scss" 
+      ],
+      "output": "Styles/cw.css"
+    }
+]

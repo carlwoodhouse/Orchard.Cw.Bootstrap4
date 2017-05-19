@@ -1,4 +1,8 @@
 <Placement>
+  <Match Path="/">
+    <Place Parts_Title="-" />
+  </Match>
+  
   <!-- Customize where the shapes are rendered -->
 
   <!-- 
