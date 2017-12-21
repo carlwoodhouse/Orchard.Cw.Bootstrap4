@@ -1,21 +1,27 @@
 ﻿
-@{ 
+@{
     var feed = Model.Feed.Elements("entry");
     var count = 1;
+    var shown = false;
 
-    foreach(var item in feed) {
-        var image = ((IEnumerable<dynamic>) item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "enclosure");
+    foreach (var item in feed) {
+        var image = ((IEnumerable<dynamic>)item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "enclosure");
         var url = ((IEnumerable<dynamic>)item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "alternate");
 
         if (item.Element("title").Value.Contains("#mtb")) {
-        <img class="img-thumbnail" style="max-height: 31%; max-width: 31%;" src="@image.Attribute("href").Value.Replace("/s150x150", string.Empty)" />
-@*<a href="@url.Attribute("href").Value">@item.Element("title").Value</a>*@
+            shown = true;
+            <img class="img-thumbnail" style="max-height: 31%; max-width: 31%;" src="@image.Attribute("href").Value.Replace("/s150x150", string.Empty)" />
+            @*<a href="@url.Attribute("href").Value">@item.Element("title").Value</a>*@
             if (count == (int)Model.Element.ItemCount) {
                 break;
             }
 
             count++;
         }
+    }
+
+    if (!shown) {
+        <p>No bike images to show at the moment :(</p>
     }
 }
 

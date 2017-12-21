@@ -1,21 +1,24 @@
 ﻿
-@{ 
-    var feed = Model.Feed.Elements("entry");
-    var count = 1;
-
-    foreach(var item in feed) {
-        var image = ((IEnumerable<dynamic>) item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "enclosure");
-        var url = ((IEnumerable<dynamic>)item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "alternate");
-        if (!item.Element("title").Value.Contains("#mtb")) {
-        <img class="img-thumbnail" style="max-height: 19%; max-width: 19%;" src="@image.Attribute("href").Value.Replace("/s150x150", string.Empty)" />
-@*<a href="@url.Attribute("href").Value">@item.Element("title").Value</a>*@
-            if (count == (int)Model.Element.ItemCount) {
-                break;
+@helper RenderCardGroup(IEnumerable<dynamic> items) {
+    <div class="card-group">
+        @foreach (var item in items) {
+            if (!item.Element("title").Value.Contains("#mtb")) {
+                var image = ((IEnumerable<dynamic>
+                    )item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "enclosure");
+                <div class="card">
+                    <img class="card-img-top" src="@image.Attribute("href").Value.Replace("/s150x150", string.Empty)" alt="@item.Element("title").Value" title="@item.Element("title").Value">
+                </div>
             }
-
-            count++;
         }
-    }
+    </div>
 }
 
+@{
+    var feed = (IEnumerable<dynamic>) Model.Feed.Elements("entry");
+    var itemCount = (int)Model.Element.ItemCount;
+    var mid = itemCount / 2;
+        
+}
 
+@RenderCardGroup(feed.Take(mid))
+@RenderCardGroup(feed.Skip(mid).Take(mid))

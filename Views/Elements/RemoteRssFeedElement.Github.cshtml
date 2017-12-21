@@ -3,33 +3,40 @@
     var feed = Model.Feed.Elements("entry");
     var count = 1;
 
-    foreach (var item in feed) {
-        var url = ((IEnumerable<dynamic>)item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "alternate");
-        var media = item.Element("thumbnail");
-        string title = item.Element("title").Value;
 
-        if (!string.IsNullOrEmpty(title)) {
-            title = title.Replace("carlwoodhouse ", string.Empty);
-            var tParts = title.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            var last = tParts.Last();
-            title = title.Replace(last, string.Empty);
+    <div class="card">
+        <div class="w-100 m-0 bg-secondary py-0 px-5">
+            <img class="card-img-top " src="@Url.Content("Themes/Orchard.Cw.Bootstrap4/Content/github.png")" alt="Github">
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">Activity</h4>
+            <p class="card-text">A summary of my latest github contributions.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var item in feed) {
+                var url = ((IEnumerable<dynamic>)item.Descendants("link")).FirstOrDefault(a => a.Attribute("rel").Value == "alternate");
+                string title = item.Element("title").Value;
 
-            <div class="media p-2">
-                @if (media != null) {
-                    <img class="d-flex mr-3" src="@media.Attribute("url").Value" alt="carlwoodhouse" >
+                if (!string.IsNullOrEmpty(title)) {
+                    title = title.Replace("carlwoodhouse ", string.Empty);
+                    var tParts = title.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    var last = tParts.Last();
+                    title = title.Replace(last, string.Empty);
+
+                    <li class="list-group-item">@title <a target="_blank" href="@url.Attribute("href").Value">@last</a></li>
                 }
-                <div class="media-body">
-                    @title <a target="_blank" href="@url.Attribute("href").Value">@last</a>
-                </div>
-            </div>
-        }
 
-        if (count == (int)Model.Element.ItemCount) {
-            break;
-        }
+                if (count == (int)Model.Element.ItemCount) {
+                    break;
+                }
 
-        count++;
-    }
+                count++;
+            }
+        </ul>
+        <div class="card-body">
+            <span class="w-100"><a class="btn btn-secondary w-100" href="https://github.com/carlwoodhouse" role="button" target="_blank">Find me on Github</a></span>
+        </div>
+    </div>
 }
 
 

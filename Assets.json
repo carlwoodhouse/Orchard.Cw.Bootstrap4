@@ -1,9 +1,13 @@
 [
-    {
-      "inputs": [
-        "../Orchard.Bootstrap4/Assets/scss/bootstrap.scss", 
-        "Assets/scss/cw.scss" 
-      ],
-      "output": "Styles/cw.css"
-    }
+  {
+    "inputs": [
+      "Assets/scss/cw.scss"
+    ],
+    "output": "Styles/cw.css",
+    "watch": [
+      "Assets/scss/**/*.scss",
+      "../Orchard.Bootstrap4/Assets/scss/**/*.scss"
+    ],
+    "generateSourceMaps": false
+  }
 ]

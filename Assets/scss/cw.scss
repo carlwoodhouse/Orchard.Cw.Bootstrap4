@@ -1,0 +1,21 @@
+﻿$primary: #00868B;
+
+@import "../../../Orchard.Bootstrap4/Assets/scss/bootstrap";
+
+.row {
+    &.cover {
+        background-image: url(/Themes/Orchard.Cw.Bootstrap4/Content/cover.jpg);
+        min-height: 750px;
+        color: $white;
+
+        .jumbotron {
+            background-color: initial;
+        }
+    }
+}
+
+#about {
+    &.jumbotron {
+        background-color: initial;
+    }
+}

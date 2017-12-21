@@ -5,7 +5,7 @@ namespace Orchard.Cw.Bootstrap4 {
         public void BuildManifests(ResourceManifestBuilder builder) {
             var manifest = builder.Add();
 
-            manifest.DefineStyle("Bootstrap.Cw.Style").SetUrl("bs.min.css", "bs.css");
+            manifest.DefineStyle("Bootstrap.Cw.Style").SetUrl("cw.min.css", "cw.css");
         }
     }
 }
